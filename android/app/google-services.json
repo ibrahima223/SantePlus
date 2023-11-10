@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "338822985477",
+    "project_id": "sante-d6bf1",
+    "storage_bucket": "sante-d6bf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338822985477:android:46e02fa3605f7a8f84296c",
+        "android_client_info": {
+          "package_name": "com.example.santeplus.santeplus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX0yJuIw-sapqewjvVaXFCrTERLrfdHR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
