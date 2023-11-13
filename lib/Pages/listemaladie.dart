@@ -181,7 +181,7 @@ class _MaladiesState extends State<Maladies> {
                 children: [
                   GestureDetector(
                     child: mylist(
-                        'assets/images/maladie.jpg',
+                        'assets/images/mal.jpg',
                         'Diabète de type 2',
                         IconButton(
                             onPressed: (){
