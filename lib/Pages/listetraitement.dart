@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../services/Userservice.dart';
 import '../services/floattingservice.dart';
 class Traitements extends StatefulWidget {
@@ -184,11 +183,11 @@ class _TraitementsState extends State<Traitements> {
               children: [
                 GestureDetector(
                   child: mylist(
-                      'assets/images/medi.jpg',
-                      'Amoxcilline',
+                      'assets/images/traitements.jpg',
+                      'Traitement grippe',
                       IconButton(
                           onPressed: (){},
-                          icon: Icon(Icons.info_outline,
+                          icon: Icon(Icons.alarm,
                             size: 20,
                             color: Colors.black,
                           )
@@ -204,8 +203,8 @@ class _TraitementsState extends State<Traitements> {
 
         ),
       ),
-        floatingActionButton: floattingservice.buildFloatingActionButton(() {
-    })
+      floatingActionButton: floattingservice.buildFloatingActionButton(() {
+      }, context, PageContext.AddTraitement),
     );
   }
 }

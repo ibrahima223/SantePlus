@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:santeplus/Pages/ajoutmedicament.dart';
+import 'package:santeplus/Pages/ajouttraitement.dart';
+import 'package:santeplus/Pages/listemedicament.dart';
+import 'package:santeplus/Pages/listetraitement.dart';
+enum PageContext{AddMedicament,AddTraitement}
 
 class FloattingService{
-  FloatingActionButton buildFloatingActionButton(VoidCallback onPressed) {
+  void _changePage(BuildContext context, PageContext pageContext){
+    print('Bouton flottant appuyé!');
+
+    if(pageContext == PageContext.AddMedicament){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddMedicament()),
+      );
+    } else if (pageContext == PageContext.AddTraitement){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => AddTraitement()),
+      );
+    }
+  }
+  FloatingActionButton buildFloatingActionButton(VoidCallback onPressed, BuildContext context, PageContext pageContext) {
     return FloatingActionButton(
       backgroundColor: Color(0xff4285F4),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
-      onPressed: (){},
+      onPressed: (){
+        _changePage(context, pageContext);
+      },
       child: Icon(
         Icons.add,
         size: 30,

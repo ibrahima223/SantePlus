@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:santeplus/Pages/ajoutmedicament.dart';
+import 'package:santeplus/Pages/modifiermedicament.dart';
 import 'package:santeplus/Pages/profile.dart';
 import 'package:santeplus/services/Userservice.dart';
 
@@ -189,15 +191,91 @@ class _MedicamentsState extends State<Medicaments> {
                       'assets/images/medi.jpg',
                       'Amoxcilline',
                       IconButton(
-                          onPressed: (){},
-                          icon: Icon(Icons.info_outline,
+                          onPressed: (){
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context){
+                                  return Dialog(
+                                    insetPadding: EdgeInsets.all(20),
+                                    shadowColor: Color.fromRGBO(0, 0, 0, 0.5),
+                                    child: SingleChildScrollView(
+                                      child: Container(
+                                        width: double.infinity,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15),
+                                            color: Colors.white
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(0.8),
+                                              child: Column(
+                                                children: [
+                                                  Text("Amoxicilline",
+                                                    style: TextStyle(
+                                                      color: Color(0xff18534F),
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                  ),
+                                                  Text("L'amoxicilline est un antibiotique "
+                                                      "qui appartient à la classe des pénicillines."
+                                                      " Il est utilisé pour traiter diverses infections"
+                                                      " bactériennes.",
+                                                    style: TextStyle(
+                                                      color:Color(0xff18534F),
+                                                      fontWeight: FontWeight.w500
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                    height: 10,
+                                                    color: Color(0xff4285F4),
+                                                  ),
+                                                  Text("Les symptômes de cette maladie sont:"
+                                                      "Infections bactériennes\n"
+                                                      "les infections de l'oreille\n"
+                                                      "les infections de la gorge\n"
+                                                      "les infections urinaires.",
+                                                    style: TextStyle(
+                                                        color:Color(0xff18534F),
+                                                        fontWeight: FontWeight.w500
+                                                    ),
+                                                  ),
+                                                  Divider(
+                                                    height: 10,
+                                                    color: Color(0xff4285F4),
+                                                  ),
+                                                  Text("Traitements recommandés :\n"
+                                                      "Prendre l'amoxicilline conformément aux instructions du professionnel de la santé.\n"
+                                                      "Respecter la posologie et la prise",
+                                                    style: TextStyle(
+                                                        color:Color(0xff18534F),
+                                                        fontWeight: FontWeight.w500
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ) ,
+                                  );
+                                }
+                            );
+                          },
+                          icon: const Icon(Icons.info_outline,
                             size: 20,
                             color: Colors.black,
                           )
                       )
                   ),
                   onTap: (){
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const UpdateMedicament()),
+                    );
                   },
                 )
               ],
@@ -207,7 +285,7 @@ class _MedicamentsState extends State<Medicaments> {
         ),
       ),
       floatingActionButton: floattingservice.buildFloatingActionButton(() {
-      })
+      }, context, PageContext.AddMedicament),
     );
   }
 }

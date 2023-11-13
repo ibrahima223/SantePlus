@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:santeplus/services/Userservice.dart';
 
-import 'listeRappels.dart';
+import 'listerappels.dart';
 import 'listemaladie.dart';
 import 'listemedicament.dart';
 import 'listetraitement.dart';
@@ -274,20 +274,6 @@ class _homeState extends State<home> {
                                 ),
                               ],
                             ),
-                            /*Column(
-                              children: [
-                                ElevatedButton(
-                                    onPressed: (){
-                                      FirebaseAuth.instance.signOut();
-                                      /*Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                          builder: (context) => connexion())
-                                      );*/
-                                    },
-                                    child: Text("Deconnexion")
-                                )
-                              ],
-
-                            )*/
                           ],
                         ),
                       )
