@@ -32,19 +32,43 @@ class _RappelsState extends State<Rappels> {
         backgroundColor: Color(0xff4285F4),
       ),
       body: SingleChildScrollView(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(20),
+        child: Column(
           children: [
-            GestureDetector(
-              child: mylist(
-                  'assets/images/photo_4.jpg',
-                  "C'est l'heure de votre prise"
-              ),
+            ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(20),
+              children: [
+                GestureDetector(
+                  child: mylist(
+                      'assets/images/photo_4.jpg',
+                      "C'est l'heure de votre prise"
+                  ),
+                )
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)
+                  ),
+                  elevation: 10,
+                  backgroundColor: Color(0xffEB4335),
+                  fixedSize: Size(400, 50),
+                ),
+                onPressed: (){},
+                child: Text("Tout supprimer",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20
+                  ),
+                ),
+              )
             )
           ],
         ),
-
       ),
     );
   }
@@ -64,7 +88,7 @@ Container mylist(String photo, String text){
         ]
     ),
     child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
@@ -74,11 +98,14 @@ Container mylist(String photo, String text){
             radius: 20,
           ),
         ),
-        Text(text,
-          style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Colors.black
+        Padding(
+            padding:EdgeInsets.only(right: 25),
+          child: Text(text,
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.black
+            ),
           ),
         ),
       ],

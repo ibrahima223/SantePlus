@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:santeplus/models/medicament.dart';
+
+import '../repositories/medicamentStream.dart';
 class AddMedicament extends StatefulWidget {
   const AddMedicament({super.key});
 
@@ -7,11 +11,41 @@ class AddMedicament extends StatefulWidget {
 }
 
 class _AddMedicamentState extends State<AddMedicament> {
-  var _selectedOnes;
-   List<String> _Ones=[
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey3= GlobalKey<FormState>();
+  TextEditingController nom_controller= TextEditingController();
+  TextEditingController description_controller= TextEditingController();
+  var categorie;
+   List<String> categories=[
     'Traditionnel',
     'Non-traditionnel'
   ];
+  Future<void> validation(String titre, String message,String photo) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(titre),
+          content: Text(message),
+          actions: <Widget>[
+            Center(
+              child: Image.asset('assets/images/success.png',
+                height: 20,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +81,8 @@ class _AddMedicamentState extends State<AddMedicament> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child:TextFormField(
+                  key: _formKey,
+                  controller: nom_controller,
                   cursorColor: Colors.blue,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -75,14 +111,15 @@ class _AddMedicamentState extends State<AddMedicament> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child:DropdownButtonFormField(
-                  value: _selectedOnes,
+                  key: _formKey2,
+                  value: categorie,
                     selectedItemBuilder: (BuildContext context) {
-                      return _Ones.map<Widget>((String item) {
+                      return categories.map<Widget>((String item) {
                         print("$item");
                         return DropdownMenuItem(value: item, child: Text(item));
                       }).toList();
                     },
-                  items: _Ones.map((item) {
+                  items: categories.map((item) {
                     return DropdownMenuItem(
                       value: item,
                       child: Text(item),
@@ -90,7 +127,7 @@ class _AddMedicamentState extends State<AddMedicament> {
                   }).toList(),
                   onChanged: (selectedItem)=> setState(
                         () {
-                      _selectedOnes = selectedItem!;
+                      categorie = selectedItem!;
                     },
                   ),
                   decoration: InputDecoration(
@@ -119,6 +156,8 @@ class _AddMedicamentState extends State<AddMedicament> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child:TextFormField(
+                  key:  _formKey3,
+                  controller: description_controller,
                   cursorColor: Colors.blue,
                     keyboardType: TextInputType.multiline,
                   maxLines: 7,
@@ -153,7 +192,31 @@ class _AddMedicamentState extends State<AddMedicament> {
                     backgroundColor: Color(0xff048B9A),
                     fixedSize: Size(200, 50),
                   ),
-                  onPressed: (){},
+                  onPressed: () async {
+                    medicament nouveauMedicament = medicament(
+                      id: '',
+                      nom: nom_controller.text,
+                      description: description_controller.text,
+                      categorie: categorie,
+                      idUser: '',
+                    );
+
+                    try {
+                      await nouveauMedicament.create();
+                      validation("Succès", "Médicament ajouté avec succès", '');
+                      setState(() {
+                        _formKey.currentState?.reset();
+                        _formKey2.currentState?.reset();
+                        _formKey3.currentState?.reset();
+                        nom_controller.clear();
+                        categorie = null;
+                        description_controller.clear();
+                      });
+
+                    } catch (e) {
+                      validation("Erreur", "Une erreur s'est produite lors de la création",'assets/images/err.png');
+                    }
+                  },
                   child: Text("Ajouter",
                     style: TextStyle(
                         color: Colors.white,

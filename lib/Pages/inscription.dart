@@ -106,11 +106,6 @@ class _InscriptionState extends State<Inscription> {
     return null;
   }
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,7 +157,6 @@ class _InscriptionState extends State<Inscription> {
                   ),
                 ),
               ),
-              
               Padding(
                 padding: EdgeInsets.only(top:20),
                 child: Container(

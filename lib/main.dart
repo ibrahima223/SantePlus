@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/homepage.dart';
 import 'package:santeplus/Pages/connexion.dart';
 import 'package:santeplus/Pages/bottomnavigatorbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +53,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
