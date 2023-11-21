@@ -98,9 +98,7 @@ class _MedicamentsState extends State<Medicaments> {
                                           ),
                                         );
                                       } else {
-                                        return CircularProgressIndicator(
-                                          color: Colors.blue,
-                                        );
+                                        return CircularProgressIndicator();
                                       }
                                     },
                                   )
@@ -111,7 +109,7 @@ class _MedicamentsState extends State<Medicaments> {
                             children: [
                               IconButton(
                                 icon: Badge(
-                                  label: Text('10'),
+                                  label: Text('3'),
                                   child: Icon(
                                     Icons.notifications,
                                     size: 30,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:santeplus/Pages/profile.dart';
 import 'package:santeplus/services/Userservice.dart';
 
 import 'listerappels.dart';
@@ -42,9 +43,17 @@ class _homeState extends State<home> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child:  CircleAvatar(
-                          backgroundImage: AssetImage("assets/images/photo.jpg"),
-                          radius: 30,
+                        child:  GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const Profile()),
+                            );
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: AssetImage("assets/images/photo.jpg"),
+                            radius: 30,
+                          ),
                         ),
                       ),
                       Padding(

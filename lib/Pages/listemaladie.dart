@@ -83,9 +83,7 @@ class _MaladiesState extends State<Maladies> {
                                             ),
                                           );
                                         } else {
-                                          return const CircularProgressIndicator(
-                                            color: Colors.blue,
-                                          );
+                                          return const CircularProgressIndicator();
                                         }
                                       },
                                     )

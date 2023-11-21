@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isbuttonVisible= false;
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
@@ -41,6 +42,12 @@ class _HomePageState extends State<HomePage> {
             unselectedItemColor: Colors.white,
             currentIndex: _selectedIndex,
             onTap: (index) {
+
+              if(index== 5){
+                setState(() {
+                  isbuttonVisible= true;
+                });
+              }
               setState(() {
                 _selectedIndex = index;
               });

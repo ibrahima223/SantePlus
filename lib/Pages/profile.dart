@@ -189,7 +189,89 @@ class _ProfileState extends State<Profile> {
                           fixedSize: Size(200, 50),
                         ),
                         onPressed: (){
-                          FirebaseAuth.instance.signOut();
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return Dialog(
+                                  insetPadding: EdgeInsets.all(20),
+                                  shadowColor: Color.fromRGBO(0, 0, 0, 0.5),
+                                  child: Container(
+                                    height: 350,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 30),
+                                          child: CircleAvatar(
+                                            backgroundImage: AssetImage('assets/images/logout.png'),
+                                            radius: 50,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 20),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                                            child: Text("Êtes-vous sûr de vous déconnecter?",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(top: 10),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(top: 10),
+                                                child: ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Color(0xffeb4335),
+                                                    fixedSize: Size(100, 50),
+                                                  ),
+                                                  onPressed: (){
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("NON",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 20
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(top: 10),
+                                                child: ElevatedButton(
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Color(0xff048b9a),
+                                                    fixedSize: Size(100, 50),
+                                                  ),
+                                                  onPressed: (){
+                                                    FirebaseAuth.instance.signOut();
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text("OUI",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 20
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+                          );
                         },
                         label: Text("Déconnexion",
                           style: TextStyle(

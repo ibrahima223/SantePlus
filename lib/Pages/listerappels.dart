@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:santeplus/models/rappel.dart';
+import 'package:santeplus/repositories/rappelStream.dart';
 class Rappels extends StatefulWidget {
   const Rappels({super.key});
 
@@ -7,6 +9,14 @@ class Rappels extends StatefulWidget {
 }
 
 class _RappelsState extends State<Rappels> {
+  List<rappel> rappels= [];
+  @override
+  void initState() {
+    afficherrappel().listen((event) {
+      rappels= event;
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,17 +44,19 @@ class _RappelsState extends State<Rappels> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ListView(
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(20),
-              children: [
-                GestureDetector(
-                  child: mylist(
-                      'assets/images/photo_4.jpg',
-                      "C'est l'heure de votre prise"
-                  ),
-                )
-              ],
+            Container(
+              height: 500,
+              child: ListView.builder(
+                itemCount: rappels.length,
+                itemBuilder:(context, index){
+                  rappel rappelCourant= rappels[index];
+                  return GestureDetector(
+                    onTap: (){},
+                    child: Container(),
+                  );
+                } ,
+
+              ),
             ),
             Padding(
               padding: EdgeInsets.all(20),
