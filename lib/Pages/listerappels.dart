@@ -45,7 +45,7 @@ class _RappelsState extends State<Rappels> {
         child: Column(
           children: [
             Container(
-              height: 500,
+              height: 679,
               child: ListView.builder(
                 itemCount: rappels.length,
                 itemBuilder:(context, index){

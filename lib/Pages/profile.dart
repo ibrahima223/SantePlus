@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
                     Padding(
                       padding: EdgeInsets.only(top:20, bottom: 10),
                       child:CircleAvatar(
-                        backgroundImage: user.imageURL == ''? AssetImage('assets/images/photo.jpg') : AssetImage(user.imageURL),
+                        backgroundImage: user.imageURL == ''? AssetImage('assets/images/profile_1.jpg') : AssetImage(user.imageURL),
                         radius: 70,
                       ) ,
                     ),

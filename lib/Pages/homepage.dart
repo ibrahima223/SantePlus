@@ -52,7 +52,7 @@ class _homeState extends State<home> {
                             );
                           },
                           child: CircleAvatar(
-                            backgroundImage: AssetImage("assets/images/photo.jpg"),
+                            backgroundImage: AssetImage("assets/images/profile_1.jpg"),
                             radius: 30,
                           ),
                         ),
