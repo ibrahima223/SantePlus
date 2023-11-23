@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:santeplus/Pages/connexion.dart';
 import 'package:santeplus/Pages/bottomnavigatorbar.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Pages/splashScreen2.dart';
+import 'Pages/splashpage.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async{
@@ -10,9 +13,21 @@ Future<void> main() async{
   await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform
   );
-  runApp(const MyApp());
+  bool isFirstTime = await checkIfFirstTime();
+
+  runApp(
+    isFirstTime ? const SplashScreen() : const MyApp(),
+  );
 }
 
+Future<bool> checkIfFirstTime() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isFirstTime = prefs.getBool('first_time') ?? true;
+  if (isFirstTime) {
+    prefs.setBool('first_time', false);
+  }
+  return isFirstTime;
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -104,35 +119,37 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      body: Column(),
+      // // body: AnimatedSplashScreen(
+      // //   splash: Column(
+      // //     children: [
+      // //       Expanded(child: Image.asset('assets/images/logo.png',
+      // //       )),
+      // //       SizedBox(height: 10),
+      // //       Text("Fura Tali",
+      // //         style: TextStyle(
+      // //           color: Color(0xff4285F4),
+      // //           fontSize: 30,
+      // //           fontWeight: FontWeight.w600,
+      // //           // fontFamily: GoogleFonts.poppins().fontFamily,
+      // //         ),
+      // //       )
+      // //     ],
+      // //   ),
+      //   nextScreen:StreamBuilder<User?>(
+      //     stream: FirebaseAuth.instance.authStateChanges(),
+      //     builder: (context, AsyncSnapshot<User?> snapshot) {
+      //       if(snapshot.hasData && snapshot.data!= null){
+      //         return HomePage();
+      //       }
+      //       return connexion();
+      //     },
+      //   ),
+      //   splashIconSize:250,
+      //   splashTransition: SplashTransition.fadeTransition,
+      //   duration: 3000,
+      //
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
@@ -141,3 +158,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+

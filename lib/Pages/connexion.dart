@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:santeplus/Pages/bottomnavigatorbar.dart';
 import 'package:santeplus/Pages/inscription.dart';
+import 'package:santeplus/models/utilisateur.dart';
 class connexion extends StatefulWidget {
   const connexion({super.key});
 
@@ -41,6 +42,18 @@ class _connexionState extends State<connexion>{
           password: motpasse_controller.text,
         );
         print('Connexion réussie');
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+
+        /*getUserPassword(credential.user!.uid).then((String? motDePasseFirestore) {
+          if (motDePasseFirestore != null && motDePasseFirestore == motpasse_controller.text) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+          } else {
+            setState(() {
+              erreurMotDePasse = true;
+            });
+          }
+        });*/
+
       }
       catch (e) {
         if (e is FirebaseAuthException) {
@@ -54,33 +67,30 @@ class _connexionState extends State<connexion>{
         }
       }
     }
-    getUserPassword(email_controller.text).then((String? motDePasseFirestore) {
-      if (motDePasseFirestore != null && motDePasseFirestore == motpasse_controller.text) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-      } else {
-        setState(() {
-          erreurMotDePasse = true;
-        });
-      }
-    });
 
   }
 
-  Future<String?> getUserPassword(String email) async {
+  /*Future<String?> getUserPassword(String userId) async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('utilisateur')
+      /*QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('utilisateur')
           .where('email', isEqualTo: email)
-          .get();
-      if (querySnapshot.docs.isEmpty) {
-        return querySnapshot.docs.first.get('password');
-      } else {
-        return null;
-      }
+          .get();*/
+
+
+      final docRef = await FirebaseFirestore.instance.collection("utilisateur").doc(userId);
+      docRef.get().then(
+            (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          Users current = Users.fromMap(data);
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+
     } catch (e) {
       print('Erreur lors de la récupération du mot de passe : $e');
       return null;
     }
-  }
+  }*/
 
 
   @override

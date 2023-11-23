@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:santeplus/Pages/connexion.dart';
 import 'package:santeplus/Pages/bottomnavigatorbar.dart';
+import 'package:santeplus/Pages/transition.dart';
 class Inscription extends StatefulWidget {
   const Inscription({super.key});
 
@@ -17,17 +18,27 @@ class _InscriptionState extends State<Inscription> {
   String? errorPassword= null;
   String? errorConfirm = null;
 
-  bool _obscuredText= true;
+  bool motdepasse= true;
+  bool confirmemotdepasse= true;
+
   TextEditingController input_nom = TextEditingController();
   TextEditingController input_prenom = TextEditingController();
   TextEditingController input_email = TextEditingController();
   TextEditingController input_motpasse = TextEditingController();
   TextEditingController input_confirm_motpasse = TextEditingController();
-  void _toogleObscured(){
+  void _motdepasse(){
     setState(() {
-      _obscuredText=!_obscuredText;
+      motdepasse=!motdepasse;
     });
   }
+
+  void _confirmemotdepasse(){
+    setState(() {
+      confirmemotdepasse=!confirmemotdepasse;
+    });
+  }
+
+
   bool verified_motpasse() {
     if(input_confirm_motpasse == input_motpasse) {
       return true;
@@ -262,7 +273,7 @@ class _InscriptionState extends State<Inscription> {
                   child: TextField(
                     controller: input_motpasse,
                     keyboardType: TextInputType.visiblePassword,
-                    obscureText: _obscuredText,
+                    obscureText: motdepasse,
                     decoration: InputDecoration(
                       errorText: errorPassword,
                         focusColor: Colors.red,
@@ -279,10 +290,10 @@ class _InscriptionState extends State<Inscription> {
                         suffixIcon: Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
                           child: GestureDetector(
-                            onTap: _toogleObscured,
+                            onTap: _motdepasse,
                             child: Icon(
                               color: Color(0xff34A853),
-                              _obscuredText
+                              motdepasse
                                   ? Icons.visibility_off_rounded
                                   : Icons.visibility_rounded,
                               size: 30,
@@ -320,7 +331,7 @@ class _InscriptionState extends State<Inscription> {
                   child: TextField(
                     controller: input_confirm_motpasse,
                     keyboardType: TextInputType.visiblePassword,
-                    obscureText: _obscuredText,
+                    obscureText: confirmemotdepasse,
                     decoration: InputDecoration(
                       errorText:errorConfirm,
                         focusColor: Colors.red,
@@ -337,10 +348,10 @@ class _InscriptionState extends State<Inscription> {
                         suffixIcon: Padding(
                           padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
                           child: GestureDetector(
-                            onTap: _toogleObscured,
+                            onTap: _confirmemotdepasse,
                             child: Icon(
                               color: Color(0xff34A853),
-                              _obscuredText
+                              confirmemotdepasse
                                   ? Icons.visibility_off_rounded
                                   : Icons.visibility_rounded,
                               size: 30,
@@ -405,7 +416,12 @@ class _InscriptionState extends State<Inscription> {
                     Text("Avez-vous un compte?"),
                     TextButton(
                         onPressed: (){
-                          Navigator.pop(context);
+                          Navigator.of(context).pop(
+                            CustomPageRoute(
+                              page: connexion(),
+                              transitionType: TransitionType.fade,
+                            ),
+                          );
                         },
                         child: Text("Connexion",
                             style: TextStyle(

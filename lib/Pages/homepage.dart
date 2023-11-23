@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:santeplus/Pages/profile.dart';
+import 'package:santeplus/Pages/sliderScreen.dart';
 import 'package:santeplus/services/Userservice.dart';
 
 import 'listerappels.dart';
@@ -102,10 +103,11 @@ class _homeState extends State<home> {
                           )
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 40),
+                        padding: EdgeInsets.only(left: 20),
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Padding(padding: EdgeInsets.only(left: 40),
+                            Padding(padding: EdgeInsets.only(left: 30),
                               child:IconButton(
                                 icon: Icon(Icons.search,
                                   size: 30,
@@ -138,107 +140,12 @@ class _homeState extends State<home> {
                   padding: EdgeInsets.only(left: 20, right: 20, top: 199),
                   child: Stack(
                     children: [
-                      Container(
-                        height: 190,
-                        decoration: BoxDecoration(
-                            color: Color(0xffEFEAEA),
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromRGBO(0, 0, 0, 0.4),
-                                  blurRadius: 7,
-                                  offset: Offset(0, 0)
-                              )
-                            ]
-                        ),
-                      ),
+                      SliderScreen(),
                       Padding(
-                        padding: EdgeInsets.only(top: 20, left: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.only(left: 15),
-                                child: Text(
-                                  "Catégories",
-                                  style: TextStyle(
-                                      color: Color(0xff4285F4),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500
-                                  ),
-                                )
-                            ),
-                            IconButton(
-                                onPressed: (){},
-                                icon: Icon(Icons.arrow_forward_ios,
-                                  size: 30,
-                                  color: Color(0xff4285F4),
-                                )
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.only(top: 135),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(top: 50),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    height: 70,
-                                    child: Card(
-                                      clipBehavior: Clip.antiAlias,
-                                      elevation: 10,
-                                      shape:RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: InkWell(
-                                        onTap: (){
-                                          print("hello");
-                                        },
-                                        child: Image.asset("assets/images/medicament.jpg"),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 70,
-                                    child: Card(
-                                      clipBehavior: Clip.antiAlias,
-                                      elevation: 10,
-                                      shape:RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: InkWell(
-                                        onTap: (){
-                                          print("hello");
-                                        },
-                                        child: Image.asset("assets/images/maladie.jpg"),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 70,
-                                    child: Card(
-                                      clipBehavior: Clip.antiAlias,
-                                      elevation: 10,
-                                      shape:RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: InkWell(
-                                        onTap: (){
-                                          print("hello");
-                                        },
-                                        child: Image.asset("assets/images/traitement.jpg"),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
                             const SizedBox(height: 50,),
                             GridView.count(
                               shrinkWrap: true,
@@ -246,7 +153,7 @@ class _homeState extends State<home> {
                               crossAxisCount: 2,
                               children: [
                                 GestureDetector(
-                                  child: myCard('assets/images/medic.jpg','Médicaments'),
+                                  child: myCard('assets/images/medicament.jpg','Médicaments'),
                                   onTap: (){
                                     Navigator.push(
                                       context,
@@ -255,7 +162,7 @@ class _homeState extends State<home> {
                                   },
                                 ),
                                 GestureDetector(
-                                  child: myCard('assets/images/person.jpg', 'Maladies'),
+                                  child: myCard('assets/images/maladie.jpg', 'Maladies'),
                                   onTap: (){
                                     Navigator.push(
                                       context,
@@ -264,7 +171,7 @@ class _homeState extends State<home> {
                                   },
                                 ),
                                 GestureDetector(
-                                  child: myCard('assets/images/traite.jpg', 'Traitements'),
+                                  child: myCard('assets/images/traitement.jpg', 'Traitements'),
                                   onTap: (){
                                     Navigator.push(
                                       context,
@@ -273,7 +180,7 @@ class _homeState extends State<home> {
                                   },
                                 ),
                                 GestureDetector(
-                                  child: myCard('assets/images/photo_prise.jpg', 'Rappels'),
+                                  child: myCard('assets/images/rappels.jpg', 'Rappels'),
                                   onTap: (){
                                     Navigator.push(
                                       context,

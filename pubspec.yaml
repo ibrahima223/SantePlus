@@ -42,11 +42,22 @@ dependencies:
   firebase_auth: ^4.12.1
   cloud_firestore: ^4.12.2
   intl: ^0.18.1
+  flutter_native_splash: ^2.3.6
+  flutter_launcher_icons: ^0.13.1
+  shared_preferences: ^2.2.2
+  carousel_slider: ^4.2.1
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/final_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
