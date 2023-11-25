@@ -165,6 +165,7 @@ class _AddTraitementState extends State<AddTraitement> {
                     filled: true,
                     fillColor: Colors.white,
                     hintText: "Dosage du traitement",
+                    suffixText: "en mg",
                     hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -196,7 +197,8 @@ class _AddTraitementState extends State<AddTraitement> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: "Fréquence",
+                    hintText: "Fréquence de prise",
+                    suffixText: "/jour",
                     hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -230,6 +232,7 @@ class _AddTraitementState extends State<AddTraitement> {
                         fontWeight: FontWeight.w500
                     ),
                   ),
+                    readOnly: true,
                     onTap: () async {
                       DateTime? pickedDate =
                       await showDatePicker(
@@ -277,6 +280,7 @@ class _AddTraitementState extends State<AddTraitement> {
                         fontWeight: FontWeight.w500
                     ),
                   ),
+                    readOnly: true,
                     onTap: () async {
                       DateTime? pickedDate =
                       await showDatePicker(
@@ -315,6 +319,7 @@ class _AddTraitementState extends State<AddTraitement> {
                         dosage: dosage_Input.text,
                         date_debut: date_debutInput.text,
                         date_fin: date_finInput.text,
+                      rappels: [],
                     );
 
                     try {

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:santeplus/models/rappel.dart';
 class medicament{
   String? id;
   String imageUrl;
@@ -49,6 +52,42 @@ class medicament{
     final docRef = firestore.collection('medicaments').doc(id);
     await docRef.delete();
   }
+
+  // static Future<List<medicament>>researchMedic(String nom) async {
+  //   try{
+  //     var querySnapshot = await FirebaseFirestore.instance
+  //         .collection('medicaments')
+  //         .where('nom', isGreaterThanOrEqualTo: nom)
+  //         .get();
+  //
+  //     List<medicament> result = querySnapshot.docs.map((doc) => medicament.fromMap(doc.data())).toList();
+  //   }
+  //   catch(e){
+  //     print("Erreur lors de la recherche des médicaments : $e");
+  //     return [];
+  //   }
+  //   // final QuerySnapshot<Map<String, dynamic>> result = await FirebaseFirestore.instance
+  //   //     .collection('medicaments')
+  //   //     .where('nom', isEqualTo: nom)
+  //   //     .get();
+  //   //
+  //   // final List<medicament> medicaments = result.docs
+  //   //     .map((doc) => medicament.fromMap(doc.data()!, doc.reference))
+  //   //     .toList();
+  //   //
+  //   // return medicaments;
+  // }
+  static List<medicament> rechercherMedicament(List<medicament> medicaments, String nom) {
+    // Filtrer la liste des médicaments en fonction du nom
+    List<medicament> resultats = medicaments.where((medicament) => medicament.nom == nom).toList();
+
+    // Vérifier si le médicament est trouvé
+    if (resultats.isEmpty) {
+      return [];
+    } else {
+      return resultats;
+    }
+  }
 }
 // Ajouter un médicament
 
@@ -64,3 +103,14 @@ Future<void> addmedicament(medicament medicament) async {
 
 
 }
+
+Stream<List<medicament>> getAllMedicamentByUserId(String userid) {
+  return FirebaseFirestore.instance
+      .collection('medicaments')
+      .where('idUser', isEqualTo: userid)
+      .snapshots()
+      .map((querySnapshot) => querySnapshot.docs
+      .map((doc) => medicament.fromMap(doc.data(), doc.reference))
+      .toList());
+}
+

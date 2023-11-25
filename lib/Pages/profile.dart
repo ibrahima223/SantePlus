@@ -37,7 +37,9 @@ class _ProfileState extends State<Profile> {
         future: userGet(),
         builder: (BuildContext context, AsyncSnapshot<Users> snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
+            return Center(
+                child: CircularProgressIndicator()
+            );
           } else if(snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
@@ -202,7 +204,7 @@ class _ProfileState extends State<Profile> {
                                         Padding(
                                           padding: const EdgeInsets.only(top: 30),
                                           child: CircleAvatar(
-                                            backgroundImage: AssetImage('assets/images/logout.png'),
+                                            backgroundImage: AssetImage('assets/images/logout_1.jpg'),
                                             radius: 50,
                                           ),
                                         ),

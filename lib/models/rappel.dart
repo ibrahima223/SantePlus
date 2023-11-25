@@ -7,8 +7,10 @@ class rappel{
   String description;
   String heure;
   String idUser;
+  bool isActive= false;
+  String idTrait;
 
-  rappel({ required this.id,required this.nom, required this.description, required this.heure,required this.idUser});
+  rappel({ required this.idTrait, required this.isActive, required this.id,required this.nom, required this.description, required this.heure,required this.idUser});
   factory rappel.fromMap(
       Map<String, dynamic> data, DocumentReference documentReference){
     return rappel(
@@ -17,6 +19,8 @@ class rappel{
       description: data['description'],
       heure: data['categorie'],
       idUser: data ['idUser'],
+      isActive: data['isActive'],
+      idTrait: data['idTrait']
     );
   }
 
@@ -26,6 +30,8 @@ class rappel{
       'description': description,
       'heure': heure,
       'nom': nom,
+      'isActive': isActive,
+      'idTrait': idTrait,
     };
   }
 
@@ -47,4 +53,20 @@ class rappel{
     final docRef = firestore.collection('rappels').doc(id);
     await docRef.delete();
   }
+}
+
+Stream<rappel?> getRappelByTraitementId(String idTrait) {
+  return FirebaseFirestore.instance
+      .collection('rappels')
+      .where('idTrait', isEqualTo: idTrait)
+      .snapshots()
+      .map((querySnapshot) {
+    var docs = querySnapshot.docs;
+    if (docs.isNotEmpty) {
+      var doc = docs.first;
+      return rappel.fromMap(doc.data(), doc.reference);
+    } else {
+      return null; // Retourne null si aucun rappel trouvé
+    }
+  });
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:santeplus/services/Userservice.dart';
 class Maladies extends StatefulWidget {
@@ -9,12 +10,10 @@ class Maladies extends StatefulWidget {
 
 class _MaladiesState extends State<Maladies> {
   final userservice= UserService();
-  bool isSearchActive = false;
   TextEditingController search_input= TextEditingController();
   void initState(){
-    search_input.addListener(() {
-      isSearchActive = search_input.text.isNotEmpty;
-    });
+    search_input.addListener(()=> setState(() {
+    }));
     super.initState();
   }
   @override
@@ -109,63 +108,21 @@ class _MaladiesState extends State<Maladies> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 160),
+                        padding: EdgeInsets.only(top: 160),
                         child: Container(
-                          margin: const EdgeInsets.all(30),
+                          margin: EdgeInsets.all(30),
                           height: 50,
-                          child: TextField(
-                            onChanged: (value) {
-                              if(search_input.text.length > 1){
-                                setState(() {
-                                  isSearchActive=true;
-                                });
-                              }else{
-                                setState(() {
-                                  isSearchActive=false;
-                                });
-                              }
-                            },
+                          child: CupertinoSearchTextField(
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500
+                            ),
                             controller: search_input,
-                            cursorColor: Colors.blue,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:const BorderSide(
-                                      color: Colors.green,
-                                    )
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: 'Rechercher...',
-                                hintStyle: const TextStyle(
-                                    fontWeight:FontWeight.w500,
-                                    fontSize: 15,
-                                    color: Colors.blue
-                                ),
-                                suffixIcon: isSearchActive
-                                    ? IconButton(
-                                  icon: const Icon(Icons.clear_outlined,
-                                    size: 25,
-                                    color: Colors.blue,
-                                  ),
-                                  onPressed: (){
-                                    search_input.clear();
-                                  },
-                                )
-                                    : null,
-                                prefixIcon: IconButton(
-                                  icon: Icon(Icons.search,
-                                    size: 25,
-                                    color: Colors.blue,
-                                  ),
-                                  onPressed: (){},
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(
-                                      color: Colors.white,
-                                    )
-                                )
+                            placeholder: "Rechercher....",
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)
                             ),
                           ),
                         ),

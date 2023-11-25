@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:santeplus/Pages/ajoutmedicament.dart';
+import 'package:santeplus/Pages/bottomnavigatorbar.dart';
 import 'package:santeplus/Pages/modifiermedicament.dart';
 import 'package:santeplus/Pages/profile.dart';
 import 'package:santeplus/services/Userservice.dart';
 
+import '../models/medicament.dart';
+import '../models/medicament.dart';
 import '../models/medicament.dart';
 import '../repositories/medicamentStream.dart';
 import '../services/floattingservice.dart';
@@ -16,21 +22,18 @@ class Medicaments extends StatefulWidget {
 }
 
 class _MedicamentsState extends State<Medicaments> {
-  List<medicament> medicaments= [];
   final floattingservice= FloattingService();
   final userservice= UserService();
-  bool isSearchActive = false;
   TextEditingController search_input= TextEditingController();
+
+  @override
   void initState(){
-    search_input.addListener(() {
-      isSearchActive = search_input.text.isNotEmpty;
-    });
     super.initState();
-    affichermedicament().listen((event) { setState(() {
-      medicaments = event;
-    });});
+    search_input.addListener(()=> setState(() {
+    }));
   }
 
+  // List<medicament> medicaments= [];
 
   @override
   Widget build(BuildContext context) {
@@ -128,59 +131,17 @@ class _MedicamentsState extends State<Medicaments> {
                       child: Container(
                         margin: EdgeInsets.all(30),
                         height: 50,
-                        child: TextField(
-                          onChanged: (value) {
-                            if(search_input.text.length > 1){
-                              setState(() {
-                                isSearchActive=true;
-                              });
-                            }else{
-                              setState(() {
-                                isSearchActive=false;
-                              });
-                            }
-                          },
+                        child: CupertinoSearchTextField(
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500
+                          ),
                           controller: search_input,
-                          cursorColor: Colors.blue,
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
-                                    color: Colors.green,
-                                  )
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: 'Rechercher...',
-                              hintStyle: TextStyle(
-                                  fontWeight:FontWeight.w500,
-                                  fontSize: 15,
-                                  color: Colors.blue
-                              ),
-                              suffixIcon: isSearchActive
-                                  ? IconButton(
-                                icon: Icon(Icons.clear_outlined,
-                                  size: 25,
-                                  color: Colors.blue,
-                                ),
-                                onPressed: (){
-                                  search_input.clear();
-                                },
-                              )
-                                  : null,
-                              prefixIcon: IconButton(
-                                icon: Icon(Icons.search,
-                                  size: 25,
-                                  color: Colors.blue,
-                                ),
-                                onPressed: (){},
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                  )
-                              )
+                          placeholder: "Rechercher....",
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)
                           ),
                         ),
                       ),
@@ -191,37 +152,59 @@ class _MedicamentsState extends State<Medicaments> {
             Container(
               //padding: const EdgeIn,
               height: 500,
-              child: ListView.builder(
-                itemCount: medicaments.length,
-                itemBuilder: (context, index) {
-                  medicament medicamentCourant = medicaments[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => UpdateMedicament(med: medicamentCourant)),
-                      );
-                    },
-                    child: mylist(
-                      medicamentCourant.imageUrl,
-                      medicamentCourant.nom,
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Dialog(
-      
-                              );
-                            },
-                          );
-                        },
-                        icon: const Icon(Icons.info_outline, size: 20, color: Colors.black),
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: StreamBuilder<List<medicament>>(
+                stream: getAllMedicamentByUserId(FirebaseAuth.instance.currentUser!.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    List<medicament> medicamentss =
+                    snapshot.data as List<medicament>;
+                    if (search_input.text.isNotEmpty) {
+                      medicamentss = medicamentss
+                          .where((element) =>
+                          element.nom!
+                              .toLowerCase()
+                              .contains(search_input.text.toLowerCase()))
+                          .toList();
+                    }
+                    return ListView.builder(
+                      itemCount: medicamentss.length,
+                      itemBuilder: (context, index) {
+                        medicament medicamentCourant = medicamentss[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  UpdateMedicament(med: medicamentCourant)),
+                            );
+                          },
+                          child: mylist(
+                            medicamentCourant.imageUrl,
+                            medicamentCourant.nom,
+                            IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Dialog(
+                                    );
+                                  },
+                                );
+                              },
+                              icon: const Icon(Icons.info_outline, size: 20,
+                                  color: Colors.black),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
+                }
+                ),
             ),
           ],
         ),

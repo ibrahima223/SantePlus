@@ -11,10 +11,12 @@ class traitement{
   String frequence;
   String date_debut;
   String date_fin;
+  List<String>? rappels;
 
-  traitement({ required this.idUser,required this.id, this.imageUrl = 'assets/images/traite.jpg',required this.nom, required this.nom_medicament, required this.frequence,required this.dosage, required this.date_debut, required this.date_fin});
+  traitement({ required this.rappels, required this.idUser,required this.id, this.imageUrl = 'assets/images/traite.jpg',required this.nom, required this.nom_medicament, required this.frequence,required this.dosage, required this.date_debut, required this.date_fin});
   factory traitement.fromMap(
       Map<String, dynamic> data, DocumentReference documentReference){
+    List<String> rappels = (data['rappels'] as List<dynamic>?)?.map<String>((e) => e.toString()).toList() ?? [];
     return traitement(
       idUser: data['idUser'],
       id: documentReference.id,
@@ -24,7 +26,8 @@ class traitement{
       dosage: data['dosage'],
       frequence: data ['frequence'],
       date_debut: data['date_debut'],
-      date_fin: data['date_fin']
+      date_fin: data['date_fin'],
+      rappels: rappels,
     );
   }
 
@@ -38,6 +41,7 @@ class traitement{
       'nom': nom,
       'date_debut': date_debut,
       'date_fin': date_fin,
+      'rappels': rappels,
     };
   }
 
@@ -59,4 +63,13 @@ class traitement{
     final docRef = firestore.collection('traitements').doc(id);
     await docRef.delete();
   }
+}
+Stream<List<traitement>> getAllTraitementByUserId(String userid) {
+  return FirebaseFirestore.instance
+      .collection('traitements')
+      .where('idUser', isEqualTo: userid)
+      .snapshots()
+      .map((querySnapshot) => querySnapshot.docs
+      .map((doc) => traitement.fromMap(doc.data(), doc.reference))
+      .toList());
 }

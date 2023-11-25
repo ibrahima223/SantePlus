@@ -41,10 +41,11 @@ class _homeState extends State<home> {
                     color: Color(0xff4285F4),
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child:  GestureDetector(
+                        padding: const EdgeInsets.only(left:0.8),
+                        child: GestureDetector(
                           onTap: (){
                             Navigator.push(
                               context,
@@ -58,80 +59,66 @@ class _homeState extends State<home> {
                         ),
                       ),
                       Padding(
-                          padding: EdgeInsets.only(left: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Text('Bienvenue,',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child:  FutureBuilder<String>(
-                                    future: userservice.getUser(),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState == ConnectionState.done) {
-                                        return Text(
-                                          '${snapshot.data}',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                          ),
-                                        );
-                                      } else if (snapshot.hasError) {
-                                        return Text(
-                                          'Erreur : ${snapshot.error}',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                          ),
-                                        );
-                                      } else {
-                                        return CircularProgressIndicator();
-                                      }
-                                    },
-                                  )
-                              ),
-                            ],
-                          )
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                        padding: const EdgeInsets.only(right: 50),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(padding: EdgeInsets.only(left: 30),
-                              child:IconButton(
-                                icon: Icon(Icons.search,
-                                  size: 30,
+                            Text('Bienvenue,',
+                              style: TextStyle(
                                   color: Colors.white,
-                                ),
-                                onPressed: (){},
-                              ) ,
-                            ),
-                            Padding(
-                              padding:EdgeInsets.only(),
-                              child:IconButton(
-                                icon: Badge(
-                                  label: Text('10'),
-                                  child: Icon(
-                                    Icons.notifications,
-                                    size: 30,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                onPressed: (){},
+                                  fontSize: 20
                               ),
-                            )
+                            ),
+                            FutureBuilder<String>(
+                              future: userservice.getUser(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.done) {
+                                  return Wrap(
+                                    children: [
+                                      Text(
+                                        '${snapshot.data}',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text(
+                                    'Erreur : ${snapshot.error}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                    ),
+                                  );
+                                } else {
+                                  return CircularProgressIndicator();
+                                }
+                              },
+                            ),
                           ],
                         ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.search,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        onPressed: (){},
+                      ),
+                      IconButton(
+                        icon: Badge(
+                          label: Text('10'),
+                          child: Icon(
+                            Icons.notifications,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: (){},
                       ),
                     ],
                   ),

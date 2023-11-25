@@ -26,54 +26,58 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:_pages[_selectedIndex],
-      bottomNavigationBar: Container(
-        height: 70,
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40)
-          ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color(0xff4285f4),
-            selectedItemColor: Colors.green,
-            unselectedItemColor: Colors.white,
-            currentIndex: _selectedIndex,
-            onTap: (index) {
+    return Material(
+      child: Scaffold(
+        body:_pages[_selectedIndex],
+        bottomNavigationBar: Container(
+          height: 70,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                topRight: Radius.circular(40)
+            ),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: const Color(0xff4285f4),
+              selectedItemColor: Colors.green,
+              unselectedItemColor: Colors.white,
+              showSelectedLabels: true,
+              showUnselectedLabels: false,
+              currentIndex: _selectedIndex,
+              onTap: (index) {
 
-              if(index== 5){
+                if(index== 5){
+                  setState(() {
+                    isbuttonVisible= true;
+                  });
+                }
                 setState(() {
-                  isbuttonVisible= true;
+                  _selectedIndex = index;
                 });
-              }
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            items: const[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded, size: 30),
-                label: 'Accueil',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.medication, size: 30),
-                label: 'Médicaments',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.coronavirus_outlined, size: 30),
-                label: 'Maladies',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.bubble_chart_outlined, size: 30),
-                label: 'Traitements',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle_outlined, size: 30),
-                label: 'Profil',
-              ),
-            ],
+              },
+              items: const[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_rounded, size: 30),
+                  label: 'Accueil',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.medication, size: 30),
+                  label: 'Médicaments',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.coronavirus_outlined, size: 30),
+                  label: 'Maladies',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.bubble_chart_outlined, size: 30),
+                  label: 'Traitements',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle_outlined, size: 30),
+                  label: 'Profil',
+                ),
+              ],
+            ),
           ),
         ),
       ),
