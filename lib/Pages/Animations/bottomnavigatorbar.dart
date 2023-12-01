@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/homepage.dart';
-import 'package:santeplus/Pages/listemaladie.dart';
-import 'package:santeplus/Pages/listemedicament.dart';
-import 'package:santeplus/Pages/listetraitement.dart';
-import 'package:santeplus/Pages/profile.dart';
+import 'package:santeplus/Pages/Connexion/homepage.dart';
+import 'package:santeplus/Pages/Maladies/listemaladie.dart';
+import 'package:santeplus/Pages/Medocs/listemedicament.dart';
+import 'package:santeplus/Pages/Traitements/listetraitement.dart';
+import 'package:santeplus/Pages/Connexion/profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -6,6 +6,7 @@ class traitement{
   String idUser;
   String imageUrl;
   String nom_medicament;
+  String nom_maladie;
   String nom;
   String dosage;
   String frequence;
@@ -13,7 +14,7 @@ class traitement{
   String date_fin;
   List<String>? rappels;
 
-  traitement({ required this.rappels, required this.idUser,required this.id, this.imageUrl = 'assets/images/traite.jpg',required this.nom, required this.nom_medicament, required this.frequence,required this.dosage, required this.date_debut, required this.date_fin});
+  traitement({ required this.rappels, required this.idUser,required this.id, this.imageUrl = 'assets/images/traite.jpg',required this.nom, required this.nom_medicament, required this.frequence,required this.dosage, required this.date_debut, required this.date_fin, required this.nom_maladie});
   factory traitement.fromMap(
       Map<String, dynamic> data, DocumentReference documentReference){
     List<String> rappels = (data['rappels'] as List<dynamic>?)?.map<String>((e) => e.toString()).toList() ?? [];
@@ -23,6 +24,7 @@ class traitement{
       imageUrl: data['imageUrl'],
       nom: data['nom'],
       nom_medicament: data['nom_medicament'],
+      nom_maladie: data['nom_maladie'],
       dosage: data['dosage'],
       frequence: data ['frequence'],
       date_debut: data['date_debut'],
@@ -35,6 +37,7 @@ class traitement{
     return {
       'idUser': idUser,
       'nom_medicament': nom_medicament,
+      'nom_maladie': nom_maladie,
       'dosage': dosage,
       'imageUrl': imageUrl,
       'frequence':frequence,

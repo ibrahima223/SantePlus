@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/connexion.dart';
-import 'package:santeplus/Pages/bottomnavigatorbar.dart';
+import 'package:santeplus/Pages/Connexion/connexion.dart';
+import 'package:santeplus/Pages/Animations/bottomnavigatorbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Pages/splashScreen2.dart';
-import 'Pages/splashpage.dart';
+import 'Pages/Inscription/splashScreen2.dart';
+import 'Pages/Inscription/splashpage.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async{

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/bottomnavigatorbar.dart';
-import 'package:santeplus/Pages/inscription.dart';
+import 'package:santeplus/Pages/Animations/bottomnavigatorbar.dart';
+import 'package:santeplus/Pages/Inscription/inscription.dart';
 import 'package:santeplus/models/utilisateur.dart';
 class connexion extends StatefulWidget {
   const connexion({super.key});

@@ -2,12 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:santeplus/Pages/modifiertraitement.dart';
+import 'package:santeplus/Pages/Rappels/listerappels.dart';
+import 'package:santeplus/Pages/Traitements/modifiertraitement.dart';
 import 'package:santeplus/models/rappel.dart';
 import 'package:santeplus/models/traitement.dart';
 import 'package:santeplus/repositories/traitementStream.dart';
-import '../services/Userservice.dart';
-import '../services/floattingservice.dart';
+import '../../services/Userservice.dart';
+import '../../services/floattingservice.dart';
 class Traitements extends StatefulWidget {
 
   const Traitements({super.key,});
@@ -84,7 +85,7 @@ class _TraitementsState extends State<Traitements> {
                           Padding(
                             padding: EdgeInsets.only(left: 10),
                             child:  CircleAvatar(
-                              backgroundImage: AssetImage("assets/images/photo.jpg"),
+                              backgroundImage: AssetImage("assets/images/profile_1.jpg"),
                               radius: 30,
                             ),
                           ),
@@ -140,7 +141,12 @@ class _TraitementsState extends State<Traitements> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const Rappels()),
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -464,6 +470,108 @@ class _TraitementsState extends State<Traitements> {
                                     color: hasAlarm ? Colors.green : Colors
                                         .black),
                               ),
+                              IconButton(
+                                onPressed: (){
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context)=>(UpdateTraitement(trait: traitementCourant,)))
+                                  );
+                                },
+                                icon: Icon(Icons.edit_rounded,
+                                  color: Colors.blueAccent,
+                                  size: 20,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: (){
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context){
+                                          return Dialog(
+                                            insetPadding: EdgeInsets.all(20),
+                                            shadowColor: Color.fromRGBO(0, 0, 0, 0.5),
+                                            child: Container(
+                                              height: 350,
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 30),
+                                                    child: CircleAvatar(
+                                                      backgroundImage: AssetImage('assets/images/traitement.jpg'),
+                                                      radius: 50,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(top: 20),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                                                      child: Text("Souhaitez-vous supprimer ce traitement ?",
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 25,
+                                                          fontWeight: FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(top: 10),
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets.only(top: 10),
+                                                          child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                              backgroundColor: Color(0xffeb4335),
+                                                              fixedSize: Size(100, 50),
+                                                            ),
+                                                            onPressed: (){
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            child: Text("NON",
+                                                              style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  fontSize: 20
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding: EdgeInsets.only(top: 10),
+                                                          child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                              backgroundColor: Color(0xff048b9a),
+                                                              fixedSize: Size(100, 50),
+                                                            ),
+                                                            onPressed: (){
+                                                              traitementCourant.delete();
+                                                              Navigator.of(context).pop();
+                                                            },
+                                                            child: Text("OUI",
+                                                              style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontWeight: FontWeight.w500,
+                                                                  fontSize: 20
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                    );
+                                },
+                                icon: Icon(Icons.delete_rounded,
+                                  color: Colors.red,
+                                  size: 20,
+                                ),
+                              ),
                             );
                           } else {
                             return const Text('ggggg');
@@ -485,7 +593,7 @@ class _TraitementsState extends State<Traitements> {
   }
 }
 
-Container mylist(String photo, String text, IconButton icon){
+Container mylist(String photo, String text, IconButton icon1,IconButton icon2,IconButton icon3){
   return Container(
     margin: EdgeInsets.all(10),
     height: 60,
@@ -518,12 +626,21 @@ Container mylist(String photo, String text, IconButton icon){
               color: Colors.black
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 30),
-          child: IconButton(
+        Row(
+          children: [
+            IconButton(
+                onPressed: (){},
+                icon: icon1,
+              ),
+            IconButton(
               onPressed: (){},
-              icon: icon,
+              icon: icon2,
             ),
+            IconButton(
+              onPressed: (){},
+              icon: icon3,
+            ),
+          ],
         ),
       ],
     ),

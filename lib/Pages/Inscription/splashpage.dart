@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/splashScreen2.dart';
-import 'package:santeplus/Pages/transition.dart';
+import 'package:santeplus/Pages/Inscription/splashScreen2.dart';
+import 'package:santeplus/Pages/Animations/transition.dart';
 
-import 'animation.dart';
+import '../Animations/animation.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

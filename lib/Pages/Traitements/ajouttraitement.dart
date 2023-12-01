@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-
-import '../models/traitement.dart';
-class UpdateTraitement extends StatefulWidget {
-  final traitement trait;
-  const UpdateTraitement({super.key, required this.trait});
+import 'package:santeplus/Pages/Medocs/ajoutmedicament.dart';
+import 'package:santeplus/models/traitement.dart';
+class AddTraitement extends StatefulWidget {
+  const AddTraitement({super.key});
 
   @override
-  State<UpdateTraitement> createState() => _UpdateTraitementState();
+  State<AddTraitement> createState() => _AddTraitementState();
 }
 
-class _UpdateTraitementState extends State<UpdateTraitement> {
+class _AddTraitementState extends State<AddTraitement> {
   DateTime selectedDate = DateTime.now();
   TextEditingController nom_traitInput= TextEditingController();
   TextEditingController nom_medicInput= TextEditingController();
-  TextEditingController frequenceInput= TextEditingController();
+  TextEditingController nom_maladieInput= TextEditingController();
   TextEditingController dosage_Input= TextEditingController();
+  TextEditingController frequence_Input= TextEditingController();
   TextEditingController date_debutInput = TextEditingController();
   TextEditingController date_finInput= TextEditingController();
   Future<void> _selectDate(BuildContext context) async {
@@ -77,10 +77,32 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
         ),
         centerTitle: true,
         backgroundColor: Color(0xff4285F4),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20,top: 10),
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: IconButton(
+                  onPressed: (){
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=>(AddMedicament()))
+                    );
+                  },
+                  icon: Icon(Icons.add,
+                    color: Colors.blueAccent,
+                  )
+              ),
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 700,
+          // height: 700,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)),
               color: Color(0xff4285F4)
@@ -108,7 +130,7 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: widget.trait.nom,
+                    hintText: "Nom du traitement",
                     hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -137,7 +159,36 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: widget.trait.nom_medicament,
+                    hintText: "Nom du médicament",
+                    hintStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child:TextFormField(
+                  controller: nom_maladieInput,
+                  cursorColor: Colors.blue,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                          color: Colors.green
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                        )
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: "Nom de la maladie",
                     hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -166,7 +217,8 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: widget.trait.dosage,
+                    hintText: "Dosage du traitement",
+                    suffixText: "en mg",
                     hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -177,7 +229,7 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child:TextFormField(
-                  controller: frequenceInput,
+                  controller: frequence_Input,
                   cursorColor: Colors.blue,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
@@ -198,7 +250,8 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    hintText: widget.trait.frequence,
+                    hintText: "Fréquence de prise",
+                    suffixText: "/jour",
                     hintStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -209,30 +262,30 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child:TextFormField(
-                  readOnly: true,
-                    controller: date_debutInput,
-                    cursorColor: Colors.blue,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                            color: Colors.green
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          )
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: widget.trait.date_debut,
-                      hintStyle: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
+                  controller: date_debutInput,
+                  cursorColor: Colors.blue,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                          color: Colors.green
                       ),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                        )
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: "Date_Début",
+                    hintStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
+                    ),
+                  ),
+                    readOnly: true,
                     onTap: () async {
                       DateTime? pickedDate =
                       await showDatePicker(
@@ -257,30 +310,30 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child:TextFormField(
-                  readOnly: true,
-                    controller: date_finInput,
-                    cursorColor: Colors.blue,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: const BorderSide(
-                            color: Colors.green
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          )
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: widget.trait.date_fin,
-                      hintStyle: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
+                  controller: date_finInput,
+                  cursorColor: Colors.blue,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                          color: Colors.green
                       ),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                        )
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintText: "Date_Fin",
+                    hintStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
+                    ),
+                  ),
+                    readOnly: true,
                     onTap: () async {
                       DateTime? pickedDate =
                       await showDatePicker(
@@ -303,125 +356,44 @@ class _UpdateTraitementState extends State<UpdateTraitement> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10),
+                padding: EdgeInsets.all(20),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff048B9A),
                     fixedSize: Size(200, 50),
                   ),
-                  onPressed: (){
-                    widget.trait.nom= nom_traitInput.text=='' ? widget.trait.nom: nom_traitInput.text;
-                    widget.trait.nom_medicament= nom_medicInput.text=='' ? widget.trait.nom_medicament: nom_medicInput.text;
-                    widget.trait.dosage = dosage_Input.text=='' ? widget.trait.dosage: dosage_Input.text;
-                    widget.trait.frequence= frequenceInput.text=='' ? widget.trait.frequence: frequenceInput.text;
-                    widget.trait.date_debut= date_debutInput.text=='' ? widget.trait.date_debut: date_debutInput.text;
-                    widget.trait.date_fin= date_finInput.text=='' ? widget.trait.date_fin: date_finInput.text;
-                    widget.trait.update();
-                    validation("Succès", "Traitement modifié avec succès");
-                  },
-                  child: Text("Modifier",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffeb4335),
-                    fixedSize: Size(200, 50),
-                  ),
-                  onPressed: (){
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context){
-                          return Dialog(
-                            insetPadding: EdgeInsets.all(20),
-                            shadowColor: Color.fromRGBO(0, 0, 0, 0.5),
-                            child: Container(
-                              height: 350,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 30),
-                                    child: CircleAvatar(
-                                      backgroundImage: AssetImage('assets/images/traitement.jpg'),
-                                      radius: 50,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                                      child: Text("Souhaitez-vous supprimer ce traitement ?",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color(0xffeb4335),
-                                              fixedSize: Size(100, 50),
-                                            ),
-                                            onPressed: (){
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text("NON",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 20
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color(0xff048b9a),
-                                              fixedSize: Size(100, 50),
-                                            ),
-                                            onPressed: (){
-                                              widget.trait.delete();
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text("OUI",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 20
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        }
+                  onPressed: () async {
+                    traitement nouveautraitement = traitement(
+                        idUser: '',
+                        id: '',
+                        nom: nom_traitInput.text,
+                        nom_medicament: nom_medicInput.text,
+                        nom_maladie: nom_maladieInput.text,
+                        frequence: frequence_Input.text,
+                        dosage: dosage_Input.text,
+                        date_debut: date_debutInput.text,
+                        date_fin: date_finInput.text,
+                      rappels: [],
                     );
+
+                    try {
+                      await nouveautraitement.create();
+                      validation("Succès", "Traitement ajouté avec succès");
+                      Navigator.of(context).pop();
+                      setState(() {
+                        nom_traitInput.clear();
+                        nom_medicInput.clear();
+                        frequence_Input.clear();
+                        dosage_Input.clear();
+                        date_debutInput.clear();
+                        date_finInput.clear();
+                      });
+
+                    } catch (e) {
+                      validation("Erreur", "Une erreur s'est produite lors de la création");
+                    }
                   },
-                  child: Text("Supprimer",
+                  child: Text("Ajouter",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,

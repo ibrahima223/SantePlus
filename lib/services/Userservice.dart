@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../models/utilisateur.dart';
+
 class UserService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -29,7 +29,6 @@ class UserService {
       return 'Erreur';
     }
   }
-
 
 }
 Users users = Users(nom: 'nom', prenom: 'prenom', email: '', imageURL: '');

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/ajoutmedicament.dart';
-import 'package:santeplus/Pages/ajouttraitement.dart';
-import 'package:santeplus/Pages/listemedicament.dart';
-import 'package:santeplus/Pages/listetraitement.dart';
+import 'package:santeplus/Pages/Medocs/ajoutmedicament.dart';
+import 'package:santeplus/Pages/Traitements/ajouttraitement.dart';
+import 'package:santeplus/Pages/Medocs/listemedicament.dart';
+import 'package:santeplus/Pages/Traitements/listetraitement.dart';
 enum PageContext{AddMedicament,AddTraitement}
 
 class FloattingService{

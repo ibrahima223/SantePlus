@@ -16,7 +16,7 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
     'Non-traditionnel'
   ];
 
-  Future<void> validation(String titre, String message,String photo) async {
+  Future<void> validation(String titre, String message) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -25,11 +25,6 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
           title: Text(titre),
           content: Text(message),
           actions: <Widget>[
-            Center(
-              child: Image.asset('assets/images/success.png',
-                height: 20,
-              ),
-            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -67,7 +62,7 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
       ),
       body: SingleChildScrollView(
         child:Container(
-          height: 650,
+          height: 500,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.only(bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)),
               color: Color(0xff4285F4)
@@ -75,7 +70,7 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child:TextFormField(
                   controller: _nomController,
                   cursorColor: Colors.blue,
@@ -104,7 +99,7 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
                 ) ,
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child:DropdownButtonFormField(
                   value: _selectedOnes,
                   selectedItemBuilder: (BuildContext context) {
@@ -148,7 +143,7 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
                 ) ,
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child:TextFormField(
                   controller: _descriptionController,
                   cursorColor: Colors.blue,
@@ -179,7 +174,7 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
                 ) ,
               ),
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff048B9A),
@@ -188,9 +183,9 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
                   onPressed: (){
                     widget.med.nom = _nomController.text == '' ? widget.med.nom : _nomController.text;
                     widget.med.description= _descriptionController.text  == '' ? widget.med.description : _descriptionController.text;
-                    widget.med.categorie= _selectedOnes ?? '';
+                    widget.med.categorie= _selectedOnes?? "_selectedOnes";
                     widget.med.update();
-                    validation("Succès", "Médicament modifié avec succès", '');
+                    validation("Succès", "Médicament modifié avec succès");
                   },
                   child: Text("Modifier",
                     style: TextStyle(
@@ -201,109 +196,6 @@ class _UpdateMedicamentState extends State<UpdateMedicament> {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(0.8),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffEB4335),
-                    fixedSize: Size(200, 50),
-                  ),
-                  onPressed: (){
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context){
-                          return Dialog(
-                            insetPadding: EdgeInsets.all(20),
-                            shadowColor: Color.fromRGBO(0, 0, 0, 0.5),
-                            child: Container(
-                              height: 350,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 30),
-                                    child: CircleAvatar(
-                                      backgroundImage: AssetImage('assets/images/delete.jpg'),
-                                      radius: 50,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 20),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                                      child: Text("Souhaitez-vous supprimer ce médicament ?",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color(0xffeb4335),
-                                              fixedSize: Size(100, 50),
-                                            ),
-                                            onPressed: (){
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text("NON",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 20
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Color(0xff048b9a),
-                                              fixedSize: Size(100, 50),
-                                            ),
-                                            onPressed: (){
-                                              widget.med.delete();
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text("OUI",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 20
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-                    );
-
-                  },
-                  child: Text("Supprimer",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ) ,

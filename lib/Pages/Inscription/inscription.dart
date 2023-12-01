@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/connexion.dart';
-import 'package:santeplus/Pages/bottomnavigatorbar.dart';
-import 'package:santeplus/Pages/transition.dart';
+import 'package:santeplus/Pages/Connexion/connexion.dart';
+import 'package:santeplus/Pages/Animations/bottomnavigatorbar.dart';
+import 'package:santeplus/Pages/Connexion/homepage.dart';
+import 'package:santeplus/Pages/Animations/transition.dart';
 class Inscription extends StatefulWidget {
   const Inscription({super.key});
 
@@ -51,7 +52,7 @@ class _InscriptionState extends State<Inscription> {
     return regex.hasMatch(email);
   }
 
-  void createUser() async {
+  Future<void> createUser() async {
     bool passe = verified_motpasse();
       try {
         final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -381,7 +382,7 @@ class _InscriptionState extends State<Inscription> {
                           borderRadius: BorderRadius.circular(20)
                       )
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       errorName = NameValidate(input_nom.text);
                       errorFirstName = FisrtNameValidate(input_prenom.text);
@@ -394,7 +395,13 @@ class _InscriptionState extends State<Inscription> {
                         errorEmail == null &&
                         errorPassword == null &&
                         errorConfirm == null) {
-                      createUser();
+                     await createUser();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const home()
+                        ),
+                      );
+
                     }
 
                   },

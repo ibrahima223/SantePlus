@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:santeplus/Pages/profile.dart';
-import 'package:santeplus/Pages/sliderScreen.dart';
+import 'package:santeplus/Pages/Connexion/profile.dart';
+import 'package:santeplus/Pages/Animations/sliderScreen.dart';
 import 'package:santeplus/services/Userservice.dart';
 
-import 'listerappels.dart';
-import 'listemaladie.dart';
-import 'listemedicament.dart';
-import 'listetraitement.dart';
+import '../Rappels/listerappels.dart';
+import '../Maladies/listemaladie.dart';
+import '../Medocs/listemedicament.dart';
+import '../Traitements/listetraitement.dart';
 class home extends StatefulWidget {
   const home({super.key});
 
@@ -111,14 +111,19 @@ class _homeState extends State<home> {
                       ),
                       IconButton(
                         icon: Badge(
-                          label: Text('10'),
+                          label: Text('3'),
                           child: Icon(
                             Icons.notifications,
                             size: 30,
                             color: Colors.white,
                           ),
                         ),
-                        onPressed: (){},
+                        onPressed: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const Rappels()),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -210,16 +215,25 @@ Container myCard(String photo, String text) {
             fit: BoxFit.cover
         )
     ),
-    child: Container(
-        alignment: Alignment.bottomCenter,
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 20,
-              color: Color(0xff18534F),
-              fontWeight: FontWeight.bold
+    child: Stack(
+      children: [
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: double.infinity,
+            color: Colors.white60,
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xff18534F),
+                  fontWeight: FontWeight.bold
+              ),
+            ),
           ),
-        )
+        ),
+      ],
     ),
   );
 }

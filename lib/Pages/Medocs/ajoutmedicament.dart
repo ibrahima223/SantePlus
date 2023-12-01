@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:santeplus/models/medicament.dart';
 
-import '../repositories/medicamentStream.dart';
+import '../../repositories/medicamentStream.dart';
 class AddMedicament extends StatefulWidget {
   const AddMedicament({super.key});
 
@@ -71,7 +71,6 @@ class _AddMedicamentState extends State<AddMedicament> {
       ),
       body: SingleChildScrollView(
         child:Container(
-          height: 600,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)),
             color: Color(0xff4285F4)
@@ -79,7 +78,7 @@ class _AddMedicamentState extends State<AddMedicament> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child:TextFormField(
                   key: _formKey,
                   controller: nom_controller,
@@ -109,7 +108,7 @@ class _AddMedicamentState extends State<AddMedicament> {
                 ) ,
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child:DropdownButtonFormField(
                   key: _formKey2,
                   value: categorie,
@@ -154,7 +153,7 @@ class _AddMedicamentState extends State<AddMedicament> {
                 ) ,
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child:TextFormField(
                   key:  _formKey3,
                   controller: description_controller,
@@ -186,7 +185,7 @@ class _AddMedicamentState extends State<AddMedicament> {
                 ) ,
               ),
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xff048B9A),
