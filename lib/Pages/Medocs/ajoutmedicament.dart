@@ -21,7 +21,7 @@ class _AddMedicamentState extends State<AddMedicament> {
     'Traditionnel',
     'Non-traditionnel'
   ];
-  Future<void> validation(String titre, String message,String photo) async {
+  Future<void> validation(String titre, String message) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -30,11 +30,6 @@ class _AddMedicamentState extends State<AddMedicament> {
           title: Text(titre),
           content: Text(message),
           actions: <Widget>[
-            Center(
-              child: Image.asset('assets/images/success.png',
-                height: 20,
-              ),
-            ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -202,7 +197,7 @@ class _AddMedicamentState extends State<AddMedicament> {
 
                     try {
                       await nouveauMedicament.create();
-                      validation("Succès", "Médicament ajouté avec succès", '');
+                      validation("Succès", "Médicament ajouté avec succès");
                       setState(() {
                         _formKey.currentState?.reset();
                         _formKey2.currentState?.reset();
@@ -213,7 +208,7 @@ class _AddMedicamentState extends State<AddMedicament> {
                       });
 
                     } catch (e) {
-                      validation("Erreur", "Une erreur s'est produite lors de la création",'assets/images/err.png');
+                      validation("Erreur", "Une erreur s'est produite lors de la création");
                     }
                   },
                   child: Text("Ajouter",

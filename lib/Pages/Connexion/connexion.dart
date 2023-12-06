@@ -12,23 +12,11 @@ class connexion extends StatefulWidget {
 }
 
 class _connexionState extends State<connexion>{
-  TextEditingController email_controller= TextEditingController();
+  final TextEditingController email_controller= TextEditingController();
   final motpasse_controller= TextEditingController();
   bool _obscureText = true;
   bool _emailVide = false;
   bool _emailInvalide = false;
-  bool _motpasseVide = false;
-  bool erreurMotDePasse= false;
-  void _toogleObscured(){
-    setState(() {
-      _obscureText=!_obscureText;
-    });
-  }
-  bool isEmailValid(String email) {
-    final RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
-    return regex.hasMatch(email);
-  }
-
   Future<void>ConnectUser() async {
     setState(() {
       _emailVide= email_controller.text.isEmpty;
@@ -43,16 +31,6 @@ class _connexionState extends State<connexion>{
         );
         print('Connexion réussie');
         Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-
-        /*getUserPassword(credential.user!.uid).then((String? motDePasseFirestore) {
-          if (motDePasseFirestore != null && motDePasseFirestore == motpasse_controller.text) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-          } else {
-            setState(() {
-              erreurMotDePasse = true;
-            });
-          }
-        });*/
 
       }
       catch (e) {
@@ -69,28 +47,18 @@ class _connexionState extends State<connexion>{
     }
 
   }
+  bool _motpasseVide = false;
+  bool erreurMotDePasse= false;
+  void _toogleObscured(){
+    setState(() {
+      _obscureText=!_obscureText;
+    });
+  }
 
-  /*Future<String?> getUserPassword(String userId) async {
-    try {
-      /*QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('utilisateur')
-          .where('email', isEqualTo: email)
-          .get();*/
-
-
-      final docRef = await FirebaseFirestore.instance.collection("utilisateur").doc(userId);
-      docRef.get().then(
-            (DocumentSnapshot doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          Users current = Users.fromMap(data);
-        },
-        onError: (e) => print("Error getting document: $e"),
-      );
-
-    } catch (e) {
-      print('Erreur lors de la récupération du mot de passe : $e');
-      return null;
-    }
-  }*/
+  bool isEmailValid(String email) {
+    final RegExp regex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    return regex.hasMatch(email);
+  }
 
 
   @override
