@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:santeplus/models/medicament.dart';
 
 import '../../controllers/UserMedoc.dart';
 import '../../models/medicamentAdmin.dart';
@@ -12,13 +13,14 @@ class AdminMedoc extends StatefulWidget {
 }
 
 class _AdminMedocState extends State<AdminMedoc> {
+  String adminId= 'aOjfzVAA2iO2nC5TBRZ7HQLjHNf1';
   @override
   Widget build(BuildContext context) {
     UserMedocController userMedocController =
     Provider.of<UserMedocController>(context);
     return SingleChildScrollView(
       child: StreamBuilder<List<Medicament>>(
-        stream: userMedocController.getAdminListMedicaments(),
+        stream: userMedocController.getAdminListMedicaments(adminId),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Medicament> adminMedicaments = snapshot.data!;
